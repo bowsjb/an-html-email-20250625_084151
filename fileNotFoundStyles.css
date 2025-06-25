@@ -1,0 +1,100 @@
+:root {
+  --fnf-font-family: 'Helvetica Neue', Arial, sans-serif;
+  --fnf-bg-color: #f9f9f9;
+  --fnf-text-color: #333333;
+  --fnf-primary-color: #007bff;
+  --fnf-primary-color-dark: #0069d9;
+  --fnf-secondary-color: #6c757d;
+  --fnf-border-radius: 4px;
+  --fnf-transition: 0.3s ease-in-out;
+}
+
+body.file-not-found {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  background-color: var(--fnf-bg-color);
+  color: var(--fnf-text-color);
+  font-family: var(--fnf-font-family);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.file-not-found-container {
+  text-align: center;
+  padding: 2rem;
+  max-width: 600px;
+  width: 90%;
+  box-sizing: border-box;
+}
+
+.file-not-found-code {
+  font-size: 10rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--fnf-primary-color);
+  line-height: 1;
+}
+
+.file-not-found-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem;
+}
+
+.file-not-found-message {
+  font-size: 1rem;
+  margin: 0.5rem 0 1.5rem;
+  color: var(--fnf-secondary-color);
+}
+
+.file-not-found-actions {
+  margin-top: 1rem;
+}
+
+.file-not-found-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffffff;
+  background-color: var(--fnf-primary-color);
+  text-decoration: none;
+  border: none;
+  border-radius: var(--fnf-border-radius);
+  cursor: pointer;
+  transition: background-color var(--fnf-transition), transform var(--fnf-transition);
+}
+
+.file-not-found-btn:hover,
+.file-not-found-btn:focus {
+  background-color: var(--fnf-primary-color-dark);
+  transform: translateY(-2px);
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .file-not-found-btn {
+    transition: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .file-not-found-code {
+    font-size: 6rem;
+  }
+  .file-not-found-title {
+    font-size: 1.5rem;
+  }
+  .file-not-found-message {
+    font-size: 0.9rem;
+  }
+  .file-not-found-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
