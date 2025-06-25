@@ -1,0 +1,50 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+require __DIR__ . '/app/init.php';
+$config = require __DIR__ . '/app/config.php';
+
+$sheetNames = [];
+if (isset($config['sheet_files']) && is_array($config['sheet_files'])) {
+    $sheetNames = $config['sheet_files'];
+}
+
+$sheetDir = __DIR__ . '/resources/sheets';
+
+if (!is_dir($sheetDir)) {
+    if (false === @mkdir($sheetDir, 0755, true) && !is_dir($sheetDir)) {
+        error_log('[addMissingSheetFile] Failed to create directory: ' . $sheetDir);
+        exit(1);
+    }
+}
+
+foreach ($sheetNames as $sheetName) {
+    if (!is_string($sheetName)) {
+        error_log('[addMissingSheetFile] Invalid sheet name type. Skipping.');
+        continue;
+    }
+    if (!preg_match('/^[A-Za-z0-9_]+$/', $sheetName)) {
+        error_log('[addMissingSheetFile] Invalid sheet name "' . $sheetName . '". Skipping.');
+        continue;
+    }
+    $fileName = $sheetName . '.txt';
+    $filePath = $sheetDir . DIRECTORY_SEPARATOR . $fileName;
+    if (file_exists($filePath)) {
+        continue;
+    }
+    $content = <<<TEMPLATE
+# {$sheetName} Sheet Template
+
+Subject: 
+
+Body: 
+
+TEMPLATE;
+    $bytesWritten = @file_put_contents($filePath, $content, LOCK_EX);
+    if ($bytesWritten === false) {
+        error_log('[addMissingSheetFile] Failed to write file: ' . $filePath);
+        continue;
+    }
+    error_log('[addMissingSheetFile] Created missing sheet file: ' . $filePath);
+}
